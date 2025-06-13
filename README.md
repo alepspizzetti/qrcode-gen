@@ -149,4 +149,4 @@ Licenza MIT — vedi / veja o arquivo [LICENSE](LICENSE)
 
 Sviluppato da / Desenvolvido por **Alessandro Pizzetti**  
 📧 a.pspizzetti@gmail.com  
-🌍 [LinkedIn]([https://linkedin.com/in/alepspizzetti](https://www.linkedin.com/in/alepspizzetti/)) • [GitHub]([https://github.com/alepspizzetti](https://github.com/alepspizzetti))
+🌍 [LinkedIn](https://www.linkedin.com/in/alepspizzetti/) • [GitHub](https://github.com/alepspizzetti)
