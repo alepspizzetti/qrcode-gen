@@ -47,8 +47,8 @@
 ### 🔧 In locale / Localmente
 
 ```bash
-git clone https://github.com/alepspizzetti/qrcodegen.git
-cd qrcodegen
+git clone git@github.com:alepspizzetti/qrcode-gen.git
+cd qrcode-gen
 ```
 
 Crea un file `.env` / Crie um arquivo `.env`:
