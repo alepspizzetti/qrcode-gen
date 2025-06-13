@@ -1,136 +1,152 @@
-# QR Code Generator
+# 🎯 QR Code Generator
 
 ![Java](https://img.shields.io/badge/Java-21-orange)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.4-brightgreen)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.0-brightgreen)
 ![AWS SDK](https://img.shields.io/badge/AWS%20SDK-2.24.12-yellow)
-![Google ZXing](https://img.shields.io/badge/Google%20ZXing-3.5.2-blue)
+![ZXing](https://img.shields.io/badge/Google%20ZXing-3.5.2-blue)
 ![Docker](https://img.shields.io/badge/Docker-✓-blue)
 ![Maven](https://img.shields.io/badge/Maven-3.9.6-red)
 
-Italiano: Un'applicazione Spring Boot che genera codici QR e li memorizza su AWS S3. Questo progetto dimostra l'integrazione della libreria ZXing di Google per la generazione dei codici QR e di AWS S3 per l'archiviazione.
+---
 
-Inglish: A Spring Boot application that generates QR codes and stores them in AWS S3. This project demonstrates the integration of Google's ZXing library for QR code generation and AWS S3 for storage.
+## 📄 Descrizione / Descrição
 
-## Table of Contents
+🇮🇹 Applicazione backend scritta in Java con Spring Boot che genera codici QR da un testo o link. L'immagine PNG generata viene salvata in Amazon S3, e l'URL viene restituito come risposta. Il progetto è progettato per essere semplice, estensibile e adatto a casi d'uso reali.
 
-- [How to Use](#how-to-use)
-   - [Prerequisites](#prerequisites)
-   - [Environment Variables](#environment-variables)
-   - [Running the Application](#running-the-application)
-      - [Local Development](#local-development)
-      - [Docker Deployment](#docker-deployment)
-   - [AWS S3 Configuration](#aws-s3-configuration)
-- [Application Flow](#application-flow)
-- [API Endpoints](#api-endpoints)
-- [License](#license)
+🇧🇷 Aplicação backend escrita em Java com Spring Boot que gera QR Codes a partir de um texto ou link. A imagem PNG gerada é armazenada na Amazon S3 e a URL é retornada como resposta. O projeto foi pensado para ser simples, extensível e aplicável a casos de uso reais.
 
-## How to Use
+---
 
-This section provides comprehensive instructions for setting up and running the QR Code Generator application.
+## 📚 Sommario / Sumário
 
-### Prerequisites
+- [🛠 Tecnologie e motivazioni / Tecnologias e motivos](#-tecnologie-e-motivazioni--tecnologias-e-motivos)
+- [🚀 Come eseguire / Como executar](#-come-eseguire--como-executar)
+- [☁️ Configurazione S3 / Configuração do S3](#️-configurazione-s3--configuração-do-s3)
+- [📊 Funzionamento / Funcionamento](#-funzionamento--funcionamento)
+- [📮 Endpoints API](#-endpoints-api)
+- [🧠 Miglioramenti futuri / Melhorias futuras](#-miglioramenti-futuri--melhorias-futuras)
+- [📄 Licenza / Licença](#-licenza--licença)
+- [🙋‍♂️ Autore / Autor](#-autore--autor)
 
-- Java 21 JDK
-- Maven
-- Docker
-- AWS Account with S3 access
-- AWS CLI configured with appropriate credentials
+---
 
-### Environment Variables
+## 🛠 Tecnologie e motivazioni / Tecnologias e motivos
 
-Create a `.env` file in the project root with the following variables:
+- **Java 21** → linguaggio moderno e robusto / linguagem moderna e robusta
+- **Spring Boot 3.5.0** → framework affidabile per API REST / framework confiável para APIs REST
+- **ZXing** → libreria leggera per generare codici QR / biblioteca leve para gerar QR Codes
+- **AWS S3 (SDK v2)** → storage scalabile e sicuro / armazenamento escalável e seguro
+- **Docker** → facilita il deploy e l'esecuzione locale / facilita o deploy e execução local
+- **Maven** → strumento standard per build in Java / ferramenta padrão de build no Java
+- **JUnit + Mockito** → test unitari e affidabilità / testes unitários e confiabilidade
 
-```env
-AWS_ACCESS_KEY_ID=your_access_key
-AWS_SECRET_ACCESS_KEY=your_secret_key
-AWS_REGION=your_region
-AWS_BUCKET_NAME=your_bucket_name
+---
+
+## 🚀 Come eseguire / Como executar
+
+### 🔧 In locale / Localmente
+
+```bash
+git clone https://github.com/alepspizzetti/qrcodegen.git
+cd qrcodegen
 ```
 
-### Running the Application
+Crea un file `.env` / Crie um arquivo `.env`:
 
-#### Local Development
+```env
+AWS_ACCESS_KEY_ID=...
+AWS_SECRET_ACCESS_KEY=...
+AWS_REGION=...
+AWS_BUCKET_NAME=...
+```
 
-1. Create the `.env` file as described above
-2. Build the project:
-   ```bash
-   mvn clean package
-   ```
-3. Run the application:
-   ```bash
-   mvn spring-boot:run
-   ```
+Esegui / Rode:
 
-#### Docker Deployment
+```bash
+./mvnw clean install
+./mvnw spring-boot:run
+```
 
-1. Build the Docker image:
-   ```bash
-   docker build -t qrcode-generator:X.X . 
-   ```
-> Remember to replace the version and image name if you want
+Applicazione disponibile su / Aplicação disponível em: [http://localhost:8080](http://localhost:8080)
 
-2. Run the container:
-   ```bash
-   docker run --env-file .env -p 8080:8080 qrcode-generator:X.X 
-   ```
+---
 
-> Remember to replace the .env file path to the path of your environment file that you created.
+### 🐳 Docker
 
-### AWS S3 Configuration
+```bash
+docker build -t qrcodegen .
+docker run --env-file .env -p 8080:8080 qrcodegen
+```
 
-1. Create an S3 bucket in your AWS account
-2. Update the `AWS_BUCKET_NAME` in your `.env` file or Docker run command
-3. Ensure your AWS credentials have appropriate permissions to access the S3 bucket
+---
 
-## Application Flow
+## ☁️ Configurazione S3 / Configuração do S3
 
-> **Note**: This diagram was built on [Mermaid Online Editor](https://www.mermaidchart.com/app/projects/d95a6b85-4fcc-442f-827b-da6d7a456612/diagrams/f54eab59-6c0f-42d4-86ab-1afa9cee30ce/version/v0.1/edit).
+1. Crea un bucket S3 nella tua console AWS
+2. Configura i permessi per `putObject`
+3. (Opzionale) Aggiungi una regola di ciclo di vita per eliminare i file dopo X giorni
+4. Usa prefissi come `temp/` per differenziare file temporanei
+
+---
+
+## 📊 Funzionamento / Funcionamento
 
 <img src="./.github/diagram.svg"/>
 
-## API Endpoints
+1. Il client invia un POST con il testo o link
+2. L'API genera il QR Code (formato PNG)
+3. L'immagine viene caricata su S3
+4. L'URL viene restituito al client
 
-### POST /qrcode
-Generate a QR code from the provided text and store it in AWS S3. The QR code will be generated as a PNG image with dimensions of 200x200 pixels.
+---
 
-**Parameters**
+## 📮 Endpoints API
 
-| Name   | Required | Type | Description |
-|--------|----------|------|-------------|
-| `link` | required | string | The text content to be encoded in the QR code. This can be any string value that you want to convert into a QR code. |
+### `POST /qrcode`
+
+#### Richiesta / Requisição:
 
 ```json
 {
   "link": "https://test.com",
-  "width": 200,
-  "height": 200
+  "widthQrCode": 300,
+  "heightQrCode": 300
 }
 ```
 
-- `link` (required): content to be encoded in the QR
-- `width`, `height`: image size (opcional, default = 200)
-
-**Response**
+#### Risposta / Resposta:
 
 ```json
 {
-    "url": "https://your-bucket.s3.your-region.amazonaws.com/random-uuid"
+  "url": "https://seu-bucket.s3.amazonaws.com/temp/uuid.png"
 }
 ```
 
-**Error Response**
+#### Errori possibili / Possíveis erros:
 
-If an error occurs during QR code generation or S3 upload, the API will return a 500 Internal Server Error.
+- `400 Bad Request` → dati non validi / dados inválidos
+- `500 Internal Server Error` → errore nella generazione o upload / erro ao gerar ou fazer upload do QR
 
-**Example Usage**
+---
 
-```bash
-curl -X POST http://localhost:8080/qrcode \
-     -H "Content-Type: application/json" \
-     -d '{"text": "https://example.com"}'
-```
+## 🧠 Miglioramenti futuri / Melhorias futuras
 
-## License
+- Integrazione con Telegram o email
+- Documentazione Swagger/OpenAPI
+- Autenticazione con token
+- Salvataggio dei metadati e data di scadenza
+- Deploy continuo con GitHub Actions e Render
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+---
 
+## 📄 Licenza / Licença
+
+Licenza MIT — vedi / veja o arquivo [LICENSE](LICENSE)
+
+---
+
+## 🙋‍♂️ Autore / Autor
+
+Sviluppato da / Desenvolvido por **Alessandro Pizzetti**  
+📧 a.pspizzetti@gmail.com  
+🌍 [LinkedIn]([https://linkedin.com/in/alepspizzetti](https://www.linkedin.com/in/alepspizzetti/)) • [GitHub]([https://github.com/alepspizzetti](https://github.com/alepspizzetti))
