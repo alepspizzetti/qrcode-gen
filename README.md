@@ -95,9 +95,20 @@ Generate a QR code from the provided text and store it in AWS S3. The QR code wi
 
 **Parameters**
 
-| Name | Required | Type | Description |
-|------|----------|------|-------------|
-| `text` | required | string | The text content to be encoded in the QR code. This can be any string value that you want to convert into a QR code. |
+| Name   | Required | Type | Description |
+|--------|----------|------|-------------|
+| `link` | required | string | The text content to be encoded in the QR code. This can be any string value that you want to convert into a QR code. |
+
+```json
+{
+  "link": "https://test.com",
+  "width": 200,
+  "height": 200
+}
+```
+
+- `link` (required): content to be encoded in the QR
+- `width`, `height`: image size (opcional, default = 200)
 
 **Response**
 
