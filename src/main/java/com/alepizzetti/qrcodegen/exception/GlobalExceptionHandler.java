@@ -37,30 +37,30 @@ public class GlobalExceptionHandler {
                     .findFirst()
                     .orElse("json");
 
-            String message = "Valor inválido para o campo '" + field + "'.";
+            String message = "Valore non valido per il campo '" + field + "'.";
             return ResponseEntity.badRequest().body(
                     new ApiError(400, List.of(new ApiError.FieldError(field, message)))
             );
         }
 
         return ResponseEntity.badRequest().body(
-                new ApiError(400, List.of(new ApiError.FieldError("json", "Requisição malformada ou campos com tipo inválido.")))
+                new ApiError(400, List.of(new ApiError.FieldError("json", "Richiesta malformata o campi con tipo non valido.")))
         );
     }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ApiError> handleBusinessError(BusinessException ex) {
         ApiError apiError = new ApiError(400, List.of(
-                new ApiError.FieldError("negocio", ex.getMessage())
+                new ApiError.FieldError("negozio", ex.getMessage())
         ));
         return ResponseEntity.badRequest().body(apiError);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGenericError(Exception ex) {
-        log.error("Erro inesperado: ", ex);
+        log.error("Errore inaspettato: ", ex);
         ApiError apiError = new ApiError(500, List.of(
-                new ApiError.FieldError("erro", "Erro interno inesperado.")
+                new ApiError.FieldError("error", "Errore interno inaspettato.")
         ));
         return ResponseEntity.internalServerError().body(apiError);
     }

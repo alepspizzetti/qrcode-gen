@@ -3,15 +3,15 @@ package com.alepizzetti.qrcodegen.dto;
 import jakarta.validation.constraints.*;
 
 public record QrCodeGenRequest(
-        @NotBlank(message = "O campo 'link' é obrigatório e não pode estar em branco.")
-        @Size(max = 2048, message = "O campo 'link' deve ter no máximo 2048 caracteres.")
+        @NotBlank(message = "Il campo 'link' è obbligatorio e non può essere vuoto.")
+        @Size(max = 2048, message = "Il campo 'link' deve avere al massimo 2048 caratteri.")
         String link,
 
-        @Min(value = 100, message = "A largura mínima é 100.")
-        @Max(value = 1000, message = "A largura máxima é 1000.")
+        @Min(value = 100, message = "La larghezza minima è 100.")
+        @Max(value = 1000, message = "La larghezza massima è 1000.")
         Integer width,
 
-        @Min(value = 100, message = "A altura mínima é 100.")
-        @Max(value = 1000, message = "A altura máxima é 1000.")
+        @Min(value = 100, message = "L'altezza minima è 100.")
+        @Max(value = 1000, message = "L'altezza massima è 1000.")
         Integer height
 ) {}
